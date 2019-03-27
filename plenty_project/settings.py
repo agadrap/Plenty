@@ -54,8 +54,8 @@ WSGI_APPLICATION = 'plenty_project.wsgi.application'
 try:
     from plenty_project.local_settings import DATABASES
 except ModuleNotFoundError:
-    print("Brak konfiguracji bazy danych w pliku local_settings.py!")
-    print("Uzupełnij dane i spróbuj ponownie!")
+    print("local_settings.py database configuration required!")
+    print("Fill in the database informations and try again!")
     exit(0)
 
 AUTH_PASSWORD_VALIDATORS = [
