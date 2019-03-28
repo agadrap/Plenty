@@ -1,4 +1,4 @@
-#Plenty
+# Plenty
 
 Plenty is an application for plant and flower lovers.
 It helps organize your tasks considering your beloved plants  - 

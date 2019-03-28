@@ -54,6 +54,11 @@ months = (
     (11, "Novemer"),
     (12, "December")
 )
+humidity_level=(
+    (0, "low: no additional action"),
+    (1, "medium: spray once a week and/or flowerpot on wet stones"),
+    (2, "high: spray everyday and keep in flowerpot on wet stones")
+)
 
 class Plant(models.Model):
     name = models.CharField(max_length=100)
@@ -63,16 +68,6 @@ class Plant(models.Model):
 
     def __str__(self):
         return 'name: {}, latin: {}'.format(self.name, self.latin_name)
-
-class PlantHumidity(models.Model):
-    activity = models.CharField(null=True, max_length=100) #spray everyday // spray once a week // flowerpot on wet stones
-    season = models.IntegerField(choices=seasons,null=True)
-    watchout = models.TextField(null=True)
-
-class PlantTemperature(models.Model):
-    minimum_C = models.IntegerField(null=True)
-    maximum_C = models.IntegerField(null=True)
-    season = models.IntegerField(choices=seasons,null=True)
 
 class PlantWatering(models.Model):
     occurrence = models.IntegerField(null=True)
@@ -91,8 +86,10 @@ class PlantDetails(models.Model):
     blooming = models.TextField(null=True)
     smell = models.IntegerField(choices=smell_level)
     light = models.IntegerField(choices=sun_exposure)
-    humidity_level = models.ForeignKey(PlantHumidity,null=True,on_delete=models.CASCADE)
-    temperature = models.ForeignKey(PlantTemperature,null=True,on_delete=models.CASCADE)
+    humidity = models.IntegerField(choices=humidity_level,null=True)
+    minimum_C = models.IntegerField(null=True)
+    maximum_C = models.IntegerField(null=True)
+
 
 class PlantCare(models.Model):
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
@@ -101,3 +98,4 @@ class PlantCare(models.Model):
     cutting = models.TextField(null=True)
     care_difficulty = models.IntegerField(choices=difficulty)
 
+#later - diseases, breeding
