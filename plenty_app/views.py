@@ -18,6 +18,7 @@ class PlantList(APIView):
         if not serializer.is_valid():
             raise ValidationError
         else:
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class PlantView(APIView):
@@ -40,7 +41,8 @@ class PlantView(APIView):
     def put(self, request, id, format=None):
         plant = self.get_object(pk=id)
         serializer = PlantSerializer(plant,data=request.data)
-        if serializer.is_valid():
+        if not serializer.is_valid():
+            raise ValidationError
+        else:
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
